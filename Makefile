@@ -27,23 +27,32 @@ define RUN_MCP_SERVER
  fi
 endef
 
+DOCKER_COMPOSE := $(shell if command -v docker-compose >/dev/null 2>&1; then echo "docker-compose"; else echo "docker compose"; fi)
+
 define RUN_DOCKER_COMPOSE
- $(MAKE) docker-build
  $(MAKE) generate-compose
+ echo "Using Docker Compose command: $(DOCKER_COMPOSE)";
  echo "Executing compose up";
  @if [ -z "$(1)" ]; then \
-  docker compose up -d --build --force-recreate; \
+  if [ "$(2)" = "no-cache" ]; then \
+   echo "Building all services with no-cache"; \
+   $(DOCKER_COMPOSE) build --no-cache; \
+  else \
+   $(DOCKER_COMPOSE) build; \
+  fi; \
+  $(DOCKER_COMPOSE) up -d --build --force-recreate; \
  else \
-  docker compose up -d $(1) --build; \
+  $(DOCKER_COMPOSE) build $(1) --no-cache; \
+  $(DOCKER_COMPOSE) up -d $(1) --build; \
  fi;
 endef
 
 define DOWN_DOCKER_COMPOSE
  echo "Executing compose down";
  @if [ -z "$(1)" ]; then \
-  docker compose down; \
+  $(DOCKER_COMPOSE) down; \
  else \
-  docker compose stop $(1) && docker compose rm -f $(1); \
+  $(DOCKER_COMPOSE) stop $(1) && $(DOCKER_COMPOSE) rm -f $(1); \
  fi;
 endef
 
@@ -64,6 +73,9 @@ start-all:
 
 stop-all:
 	$(call DOWN_DOCKER_COMPOSE)
+
+start-all-no-cache:
+	$(call RUN_DOCKER_COMPOSE,,no-cache)
 
 # List all discovered services
 list-services:

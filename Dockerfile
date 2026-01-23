@@ -33,8 +33,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy the entire mcp_servers_registry package
 COPY mcp_registry_servers/ ./mcp_registry_servers/
 
-# Install the package in development mode
-RUN pip install -e .
 
 ENV GITHUB_TOKEN=${GITHUB_TOKEN}
 

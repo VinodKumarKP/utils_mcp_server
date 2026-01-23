@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 if [ -z "$MCP_SERVER_NAME" ]; then
     echo "Error: MCP_SERVER_NAME environment variable is required"
     exit 1

@@ -4,9 +4,9 @@ requires = ["setuptools>=61.0", "wheel", "ruamel.yaml", "setuptools_scm>=8"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "mcp_registry_servers_{{category}}"
+name = "mcp_registry_servers_utils"
 description = "MCP Servers"
-authors = [{name = "Vinod Kumar KP", email = "{Email address of the author}"}]
+authors = [{name = "Vinod Kumar KP", email = "vinod.kunnum-purath@capgemini.com"}]
 license = {text = "MIT"}
 readme = "README.md"
 requires-python = ">=3.11"

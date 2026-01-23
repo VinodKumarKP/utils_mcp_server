@@ -1,8 +1,0 @@
-port: 8000
-description: |
-  This is a template server for information purpose
-tags:
-  - List of tags
-source: source url
-env:
-  key: $key
