@@ -1,0 +1,9 @@
+port: 8010
+description: |-
+  An MCP server for file related operations
+tags:
+  - file
+  - operation
+  - utils
+source: https://github.com/Capgemini-Innersource/ptr_utils_mcp_servers.git
+

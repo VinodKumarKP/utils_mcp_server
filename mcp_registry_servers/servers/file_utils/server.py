@@ -1,0 +1,48 @@
+import os
+import sys
+from dotenv import load_dotenv
+
+project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+if project_root not in sys.path:
+    sys.path.insert(0, project_root)
+
+load_dotenv(os.path.join(project_root, '..', '.env'))
+
+file_root = os.path.dirname(os.path.abspath(__file__))
+path_list = [
+    file_root,
+    os.path.dirname(file_root),
+    os.path.dirname(os.path.dirname(file_root))
+]
+for path in path_list:
+    if path not in sys.path:
+        sys.path.append(path)
+
+import nest_asyncio  # Added import
+
+nest_asyncio.apply()  # Added call
+
+
+from mcp_registry_servers.utils.file_utils import FileUtils
+from oai_mcp_server_core.core.base_mcp_server import BaseMCPServer
+
+
+class FileUtilsServer(BaseMCPServer):
+    """Stock tools MCP server implementation."""
+
+    def __init__(self):
+        """
+        Initialize the Stock tools server.
+        """
+        super().__init__(self.base_directory(__file__),
+                         object_list=[FileUtils()],
+                         source_file=__file__)
+
+def main():
+    """Main function to run the Stock tools server."""
+    server = FileUtilsServer()
+    server.main()
+
+
+if __name__ == "__main__":
+    main()
