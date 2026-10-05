@@ -22,7 +22,8 @@ classifiers = [
 
 dependencies = [
     "oai-mcp-server-core",
-    "mcp==1.25.0"
+    "mcp==2.3.0",
+    "fastmcp==4.0.11"
 ]
 
 [tool.uv.sources]
